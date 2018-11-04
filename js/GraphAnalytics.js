@@ -1,6 +1,6 @@
 
 /*
- * GraphAnalyticsLib (C) 2018 Jatin Bhasin.
+ * GraphAnalyticsLib (C) 2018 - Jatin Bhasin.
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  *
@@ -145,7 +145,20 @@ class GraphAnalyticsLib {
 
     static eccentricityMeasure(sourceVertex,graph,cost)
     {
+        let shortestPathToAllNodesResponse = GraphAnalyticsLib.shortestPathToAllNodes(graph,sourceVertex,cost);
+        let maxDistanceFromAllNodes = 0;
+        let vertexMap = graph.getVertexMap();
+        for (const [label, node] of vertexMap) {
+            if(sourceVertex != label)
+            {
+                maxDistanceFromAllNodes = Math.max(maxDistanceFromAllNodes, GraphAnalyticsUtil.parsePathMapToGetGeodesicDistance(sourceVertex,label,shortestPathToAllNodesResponse.PathMap));
+            }
+        }
 
+
+        return {
+            "eccentricityMeasure" : maxDistanceFromAllNodes
+        };
     }
 
 }
