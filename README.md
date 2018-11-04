@@ -5,7 +5,7 @@ First ever - A Graph Anlaytics Library providing the user with an in-memory grap
 
 # Usage
 - Can be used anywhere javascript can be executed
-- Can be used in React and React Native thus allowing graphs and graph analytics on mobile platforms,IoT as well as browsers or Node.js based frameworks.
+- Can be used in React and React Native thus allowing graphs and graph analytics on mobile platforms,IoT, network analytics as well as browsers or Node.js based frameworks.
 
 
 
