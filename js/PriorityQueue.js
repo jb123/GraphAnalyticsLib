@@ -1,5 +1,5 @@
 /*
- * GraphAnalyticsLib (C) 2018 Jatin Bhasin.
+ * GraphAnalyticsLib (C) 2018 - 2019 Jatin Bhasin.
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  *
@@ -7,7 +7,7 @@
  */
 
 
- 
+
 class PQNode {
     constructor(value, priority) {
       this.value = value;
