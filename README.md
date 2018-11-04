@@ -9,7 +9,7 @@ First ever - A Graph Anlaytics Library providing the user with an in-memory grap
 
 
 
-# In Progress
+# To Do / In Progress
 - Library is still in progress - need to generalize "cost" attributes in relationship
 - Increasing efficiency / optimization by parallel computing of algorithms
 - Better formatting
