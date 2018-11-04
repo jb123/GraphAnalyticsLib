@@ -12,25 +12,24 @@ class GraphAnalyticsLib {
 
     static shortestPathToDestinationNode (graph,sourceVertex,destinationVertex,cost)
     {
-        let shortesPathToAllNodesResponse = GraphAnalyticsLib.shortestPathToAllNodes(graph,sourceVertex,cost);
+        const shortesPathToAllNodesResponse = GraphAnalyticsLib.shortestPathToAllNodes(graph,sourceVertex,cost);
         shortesPathToAllNodesResponse.shortestPathToDestinationNode = GraphAnalyticsUtil.parsePathMapToGetPathAsArray(sourceVertex,destinationVertex,shortesPathToAllNodesResponse.PathMap) ;
         return shortesPathToAllNodesResponse;
     }
 
     static shortestPathToAllNodes (graph, sourceVertex,cost)
     {
-       let vertexMap = graph.getVertexMap();
-       let shortestPathMap = new Map();
+       const vertexMap = graph.getVertexMap();
+       const shortestPathMap = new Map();
+       const sourceNode = graph.getNode(sourceVertex);
+       const visitedVertices = new Set();
+       const vertexCostMinHeap = new PriorityQueue();
 
-       let sourceNode = graph.getNode(sourceVertex);
-       let visitedVertices = new Set();
-       let vertexCostMinHeap = new PriorityQueue();
        for (const [label, node] of vertexMap) {
            if (sourceVertex === label)
                 vertexCostMinHeap.addNode(label,0);
            else
-                vertexCostMinHeap.addNode(label,Number.POSITIVE_INFINITY);                                      
-        
+                vertexCostMinHeap.addNode(label,Number.POSITIVE_INFINITY);                                       
                 shortestPathMap.set(label,[]);   
         }
 
@@ -71,9 +70,9 @@ class GraphAnalyticsLib {
 
     static degreeCentrality (graph)
     {
-        let vertexMap = graph.getVertexMap();
-        let response = [];
-        let degreeCentralityForANode = {}
+        const vertexMap = graph.getVertexMap();
+        const response = [];
+        const degreeCentralityForANode = {}
         for (const [label, node] of vertexMap) {
             let degreeCentralityForANode = {
                 node_label : label,
@@ -89,9 +88,10 @@ class GraphAnalyticsLib {
 
     static closenessCentralityMeasure (sourceVertex, graph, cost)
     {
-        let shortestPathToAllNodesResponse = GraphAnalyticsLib.shortestPathToAllNodes(graph,sourceVertex,cost);
+        const shortestPathToAllNodesResponse = GraphAnalyticsLib.shortestPathToAllNodes(graph,sourceVertex,cost);
         let rawDistanceFromAllNodes = 0;
-        let vertexMap = graph.getVertexMap();
+        const vertexMap = graph.getVertexMap();
+        
         for (const [label, node] of vertexMap) {
             if(sourceVertex != label)
             {
@@ -99,7 +99,7 @@ class GraphAnalyticsLib {
             }
         }
 
-        let closenessCentralityMeasure = 1/rawDistanceFromAllNodes;
+        const closenessCentralityMeasure = 1/rawDistanceFromAllNodes;
 
         return {
             "rawDistanceFromAllNodes" : rawDistanceFromAllNodes,
@@ -110,24 +110,24 @@ class GraphAnalyticsLib {
 
     static inBetweenCentrality(sourceVertex, graph, cost)
     {
-        let vertexMap = graph.getVertexMap();
-        let inBetweenCentralitySetArray =  [];
+        const vertexMap = graph.getVertexMap();
+        const inBetweenCentralitySetArray =  [];
         for (const [label, node] of vertexMap) {
            
            let shortestPathToAllNodesResponse = GraphAnalyticsLib.shortestPathToAllNodes(graph,label,cost);            
            let verticesPathSetArray = GraphAnalyticsUtil.parsePathMapToGetAllPathsAsArrayOfVertexSets(label,shortestPathToAllNodesResponse.PathMap);
            inBetweenCentralitySetArray.push(verticesPathSetArray);
         }
-        var sourceVertexPathScore = 0; 
-        var totalNoOfPaths = 0;
+        let sourceVertexPathScore = 0; 
+        let totalNoOfPaths = 0;
         for(var i=0;i<inBetweenCentralitySetArray.length;++i)
         {
-            var vertexSetArray = inBetweenCentralitySetArray[i];
+            let vertexSetArray = inBetweenCentralitySetArray[i];
             totalNoOfPaths = totalNoOfPaths+vertexSetArray.length;
 
             for(var j=0;j<vertexSetArray.length;++j)
             {
-                var verticesSet = vertexSetArray[j];
+                let verticesSet = vertexSetArray[j];
                 if(verticesSet.has(sourceVertex))
                 {
                     ++sourceVertexPathScore;
@@ -145,9 +145,10 @@ class GraphAnalyticsLib {
 
     static eccentricityMeasure(sourceVertex,graph,cost)
     {
-        let shortestPathToAllNodesResponse = GraphAnalyticsLib.shortestPathToAllNodes(graph,sourceVertex,cost);
+        const shortestPathToAllNodesResponse = GraphAnalyticsLib.shortestPathToAllNodes(graph,sourceVertex,cost);
         let maxDistanceFromAllNodes = 0;
-        let vertexMap = graph.getVertexMap();
+        const vertexMap = graph.getVertexMap();
+        
         for (const [label, node] of vertexMap) {
             if(sourceVertex != label)
             {
