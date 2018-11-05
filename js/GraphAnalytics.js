@@ -10,6 +10,14 @@
 
 class GraphAnalyticsLib {
 
+    /**
+     *  This function calculates the shortest path from a source Vertex
+     *  to a destination vertex using the djikstra's algorithm
+     * @param {Graph} graph 
+     * @param {String} sourceVertex label
+     * @param {String} destinationVertex label
+     * @param {String} cost 
+     */
     static shortestPathToDestinationNode (graph,sourceVertex,destinationVertex,cost)
     {
         const shortesPathToAllNodesResponse = GraphAnalyticsLib.shortestPathToAllNodes(graph,sourceVertex,cost);
@@ -17,6 +25,14 @@ class GraphAnalyticsLib {
         return shortesPathToAllNodesResponse;
     }
 
+    /**
+     * This function is the djikstra's algorithm to calculate shortest paths from
+     * a single source
+     * 
+     * @param {Graph} graph 
+     * @param {String} sourceVertex 
+     * @param {String} cost 
+     */
     static shortestPathToAllNodes (graph, sourceVertex,cost)
     {
        const vertexMap = graph.getVertexMap();
@@ -43,9 +59,11 @@ class GraphAnalyticsLib {
             for(let rel of outBoundRelationships)
             {
                 let destinationVertex = rel.getDestinationVertex();
-                if(vertexCostMinHeap.exists(destinationVertex)==false)
+                if(vertexCostMinHeap.exists(destinationVertex) == false)
                     continue;
+
                 let newCost = minNode.priority + rel.attributes.cost;
+
                 if(newCost<(vertexCostMinHeap.getNode(destinationVertex)).priority)
                 {
                     shortestPathMap.set(destinationVertex,minNode.value);
@@ -55,12 +73,16 @@ class GraphAnalyticsLib {
             minNode = vertexCostMinHeap.removeNode();
         }
 
-        return { "sourceVertex":sourceVertex,
+        return { "node_label":sourceVertex,
                  "DistanceToEachNode": visitedVertices,
                  "PathMap":  shortestPathMap   
         };
     }
     
+    /**
+     * Prints the Graph object
+     * @param {Graph} graph 
+     */
     static printGraph (graph)
     {
         for (const [label, node] of graph.getVertexMap()) {
@@ -68,24 +90,36 @@ class GraphAnalyticsLib {
         }
     }
 
+    /**
+     * This function calculates the outdegree and indegree centrality measure of all the nodes of a graph
+     * @param {Graph} graph 
+     */
     static degreeCentrality (graph)
     {
         const vertexMap = graph.getVertexMap();
-        const response = [];
-        const degreeCentralityForANode = {}
+        const degreeCentralityResponse = [];
+
         for (const [label, node] of vertexMap) {
             let degreeCentralityForANode = {
-                node_label : label,
-                inBound : (node.getInBoundRelationships()).length,
-                outBound: (node.getOutBoundRelationships()).length                                      
+                "node_label" : label,
+                "inDegreeCentrality"  : (node.getInBoundRelationships()).length,
+                "outDegreeCentrality" : (node.getOutBoundRelationships()).length                                      
             };
 
-         response.push(degreeCentralityForANode);
+         degreeCentralityResponse.push(degreeCentralityForANode);
         }
     
-        return response;
+        return degreeCentralityResponse;
     }
 
+    /**
+     * This function calculates closeness Centrality Measure of a vertex in a graph based on the relationship
+     * attribute (cost in this case)
+     * 
+     * @param {String} sourceVertex 
+     * @param {Graph} graph 
+     * @param {String} cost 
+     */
     static closenessCentralityMeasure (sourceVertex, graph, cost)
     {
         const shortestPathToAllNodesResponse = GraphAnalyticsLib.shortestPathToAllNodes(graph,sourceVertex,cost);
@@ -102,12 +136,20 @@ class GraphAnalyticsLib {
         const closenessCentralityMeasure = 1/rawDistanceFromAllNodes;
 
         return {
+            "node_label" : sourceVertex,
             "rawDistanceFromAllNodes" : rawDistanceFromAllNodes,
             "closenessCentralityMeasure" : closenessCentralityMeasure
         };
 
     }
 
+    /**This function calculates the In-Between Centrality measure of a vertex in a graph based on the relationship
+     * attribute (cost in this case)
+     * 
+     * @param {String} sourceVertex 
+     * @param {Graph} graph 
+     * @param {String} cost 
+     */
     static inBetweenCentrality(sourceVertex, graph, cost)
     {
         const vertexMap = graph.getVertexMap();
@@ -137,12 +179,21 @@ class GraphAnalyticsLib {
         }
         
         return {
+            "node_label" : sourceVertex,
             "inBetweenCentrality":inBetweenCentralitySetArray,
             "inBetweenCentralityScore":sourceVertexPathScore/totalNoOfPaths,
             "totalPaths":totalNoOfPaths
         };
     }
 
+    /**
+     * This function calculates the eccentricity measure of a vertex in a graph
+     * based on the relationship attribute (cost in this case)
+     * 
+     * @param {String} sourceVertex 
+     * @param {Graph} graph 
+     * @param {String} cost 
+     */
     static eccentricityMeasure(sourceVertex,graph,cost)
     {
         const shortestPathToAllNodesResponse = GraphAnalyticsLib.shortestPathToAllNodes(graph,sourceVertex,cost);
@@ -158,6 +209,7 @@ class GraphAnalyticsLib {
 
 
         return {
+            "node_label" : sourceVertex,
             "eccentricityMeasure" : maxDistanceFromAllNodes
         };
     }
