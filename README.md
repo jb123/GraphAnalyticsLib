@@ -1,12 +1,12 @@
 # GraphAnalyticsLib
-First ever - A Graph Anlaytics Library providing the user with an in-memory graph and graph analytics algorithms for creating, managing, processing and analyzing graphs, purely written in Javascript without any external dependencies.
+First ever - A Graph Anlaytics Library providing the user with an in-memory graph and graph analytics algorithms for creating, storing, managing, processing and analyzing graphs, purely written in Javascript without any external dependencies.
 
 
 
 # Usage
 - Can be used anywhere javascript can be executed
 - Can be used in React, React Native, browsers, Iot platforms, mobile platforms and other JS based frameworks/libraries (Node.js etc)
-- Allows creation,managing,processing and analyzing graphs using only JS without external dependencies.
+- Allows creation,storing, managing,processing and analyzing graphs using only JS without external dependencies.
 - Provides in-built graph analytical algorithms to process and analyze graphs
 
 
