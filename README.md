@@ -1,5 +1,5 @@
 # GraphAnalyticsLib
-First ever - A Graph Anlaytics Library providing the user with an in-memory graph and graph analytics algorithms for creating, storing, managing, processing and analyzing graphs, purely written in Javascript without any external dependencies.
+First ever - A Graph Anlaytics Library providing the user with an in-memory graph and graph analytics algorithms enabling the user to create, store, manage, process and most importantly analyze graphs for insights and other purposes, <b>purely</b> written in Javascript without any external dependencies.
 
 
 
