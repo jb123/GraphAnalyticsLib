@@ -27,3 +27,15 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
+
+
+
+module.exports = {
+  graphAnalytics :  require("./GraphAnalytics"),
+  GraphAnalyticsUtil: require("./GraphAnalyticsUtil"),
+  Node: require("./Node"),
+  Graph : require("./Graph"),
+  Relationship : require("./Relationship"),
+  PriorityQueue : require("./PriorityQueue")
+};

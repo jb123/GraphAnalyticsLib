@@ -1,0 +1,29 @@
+{
+  "name": "graphanalyticslib",
+  "version": "1.0.11",
+  "description": "First ever - A Graph Anlaytics Library providing the user with an in-memory graph and graph analytics algorithms enabling the user to create, store, manage, process and most importantly analyze graphs for insights and other purposes, purely written in Javascript without any external dependencies.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jb123/GraphAnalyticsLib.git"
+  },
+  "keywords": [
+    "graph-analytics",
+    "analytics",
+    "graph",
+    "algorithms",
+    "database",
+    "data-analysis",
+    "network",
+    "analysis"
+  ],
+  "author": "Jatin Bhasin <jb123.github@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jb123/GraphAnalyticsLib/issues"
+  },
+  "homepage": "https://github.com/jb123/GraphAnalyticsLib#readme"
+}
