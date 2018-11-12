@@ -6,8 +6,8 @@
  * Class defining a relationship in a graph
  */
 
-
-module.exports = class Relationship {
+class Relationship{
+//module.exports = class Relationship {
 
 	constructor(id, sourceVertex, destinationVertex, type, attributes) {
 		this.id = id;
@@ -27,17 +27,27 @@ module.exports = class Relationship {
 		return this.type;
 	}
 
+	/**
+	 * each relationship can have attributes
+	 * associated with it.
+	 */
 	getRelationshipAttributes()
 	{
 		let attributes = JSON.parse(this.attributes);
 		return attributes;
 	}
 
+	/**
+	 * get source vertex of the relationship
+	 */
 	getSourceVertex()
 	{
 		return this.sourceVertex;
 	}
 
+	/**
+	 * get destination vertex of the relationship
+	 */
 	getDestinationVertex()
 	{
 		return this.destinationVertex;

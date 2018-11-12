@@ -5,8 +5,8 @@
  *
  * Class defining a graph
  */
- 
-module.exports = class Graph {
+class Graph {
+//module.exports = class Graph {
 	
 	constructor(label) {
 		this.label = label;
@@ -14,14 +14,22 @@ module.exports = class Graph {
 	    this.noOfEdges=0;
 		this.vertexMap = new Map();	
 	}
-
+	
+	/**
+	 * 
+	 * @param {Node} n node of the graph 
+	 */
 	addNode(n)
 	{
 		this.vertexMap.set(n.getLabel(),n);
 		++this.noOfVertices;
 		
 	}
-
+	
+	/**
+	 * 
+	 * @param {Relationship} relationship 
+	 */
 	addRelationship(relationship)
 	{
 		++this.noOfEdges;
@@ -31,27 +39,43 @@ module.exports = class Graph {
 		destinationVertex.addInBoundRelationship(relationship);		
 		
 	}
-
-	getNode(node)
+	
+	/**
+	 * 
+	 * @param {String} nodeLabel 
+	 */
+	getNode(nodeLabel)
 	{
-		return this.vertexMap.get(node);
+		return this.vertexMap.get(nodeLabel);
 	}
 
+	/**
+	 * Get name of the graph
+	 */
 	getName()
 	{
 		return this.name;
 	}
 
+	/**
+	 * get number of edges in the graph
+	 */
 	getNoOfEdges()
 	{
 		return this.noOfEdges;
 	}
 
+	/**
+	 * get number of vertices in the graph
+	 */
 	getNoOfVertices()
 	{
 		return this.noOfVertices;
 	}
 
+	/**
+	 * get graph vertex map
+	 */
 	getVertexMap()
 	{
 		return this.vertexMap;

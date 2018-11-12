@@ -8,8 +8,8 @@
  */
 
 
-module.exports = class GraphAnalyticsLib {
-
+//module.exports = class GraphAnalyticsLib {
+    class GraphAnalyticsLib {
     /**
      *  This function calculates the shortest path from a source Vertex
      *  to a destination vertex using the djikstra's algorithm
@@ -18,9 +18,9 @@ module.exports = class GraphAnalyticsLib {
      * @param {String} destinationVertex label
      * @param {String} cost 
      */
-    static shortestPathToDestinationNode (graph,sourceVertex,destinationVertex,cost)
+    static shortestPathToDestinationNode (graph,sourceVertex,destinationVertex,relationshipType,attribute)
     {
-        const shortesPathToAllNodesResponse = GraphAnalyticsLib.shortestPathToAllNodes(graph,sourceVertex,cost);
+        const shortesPathToAllNodesResponse = GraphAnalyticsLib.shortestPathToAllNodes(graph,sourceVertex,relationshipType,attribute);
         shortesPathToAllNodesResponse.shortestPathToDestinationNode = GraphAnalyticsUtil.parsePathMapToGetPathAsArray(sourceVertex,destinationVertex,shortesPathToAllNodesResponse.PathMap) ;
         return shortesPathToAllNodesResponse;
     }
@@ -33,7 +33,7 @@ module.exports = class GraphAnalyticsLib {
      * @param {String} sourceVertex 
      * @param {String} cost 
      */
-    static shortestPathToAllNodes (graph, sourceVertex,cost)
+    static shortestPathToAllNodes (graph, sourceVertex,relationshipType, attribute)
     {
        const vertexMap = graph.getVertexMap();
        const shortestPathMap = new Map();
@@ -54,7 +54,7 @@ module.exports = class GraphAnalyticsLib {
         {
             let graphNode = vertexMap.get(minNode.value);
             visitedVertices.add(minNode);
-            let outBoundRelationships = graphNode.getOutBoundRelationships();
+            let outBoundRelationships = graphNode.getOutBoundRelationships(relationshipType);
             
             for(let rel of outBoundRelationships)
             {
@@ -62,7 +62,7 @@ module.exports = class GraphAnalyticsLib {
                 if(vertexCostMinHeap.exists(destinationVertex) == false)
                     continue;
 
-                let newCost = minNode.priority + rel.attributes.cost;
+                let newCost = minNode.priority + rel.attributes[attribute];
 
                 if(newCost<(vertexCostMinHeap.getNode(destinationVertex)).priority)
                 {
@@ -86,7 +86,7 @@ module.exports = class GraphAnalyticsLib {
     static printGraph (graph)
     {
         for (const [label, node] of graph.getVertexMap()) {
-           console.log("label"+ label+", node outbound "+node.getOutBoundRelationships()[0]+" node inbound"+node.getInBoundRelationships());
+           console.log("label"+ label);
         }
     }
 
@@ -94,7 +94,7 @@ module.exports = class GraphAnalyticsLib {
      * This function calculates the outdegree and indegree centrality measure of all the nodes of a graph
      * @param {Graph} graph 
      */
-    static degreeCentrality (graph)
+    static degreeCentrality (graph,relationshipType)
     {
         const vertexMap = graph.getVertexMap();
         const degreeCentralityResponse = [];
@@ -102,8 +102,8 @@ module.exports = class GraphAnalyticsLib {
         for (const [label, node] of vertexMap) {
             let degreeCentralityForANode = {
                 "node_label" : label,
-                "inDegreeCentrality"  : (node.getInBoundRelationships()).length,
-                "outDegreeCentrality" : (node.getOutBoundRelationships()).length                                      
+                "inDegreeCentrality"  : (node.getInBoundRelationships(relationshipType)).length,
+                "outDegreeCentrality" : (node.getOutBoundRelationships(relationshipType)).length                                      
             };
 
          degreeCentralityResponse.push(degreeCentralityForANode);
@@ -120,9 +120,9 @@ module.exports = class GraphAnalyticsLib {
      * @param {Graph} graph 
      * @param {String} cost 
      */
-    static closenessCentralityMeasure (sourceVertex, graph, cost)
+    static closenessCentralityMeasure (sourceVertex, graph, relationshipType, attribute)
     {
-        const shortestPathToAllNodesResponse = GraphAnalyticsLib.shortestPathToAllNodes(graph,sourceVertex,cost);
+        const shortestPathToAllNodesResponse = GraphAnalyticsLib.shortestPathToAllNodes(graph, sourceVertex, relationshipType, attribute);
         let rawDistanceFromAllNodes = 0;
         const vertexMap = graph.getVertexMap();
         
@@ -150,13 +150,13 @@ module.exports = class GraphAnalyticsLib {
      * @param {Graph} graph 
      * @param {String} cost 
      */
-    static inBetweenCentrality(sourceVertex, graph, cost)
+    static inBetweenCentrality(sourceVertex, graph, relationshipType, attribute)
     {
         const vertexMap = graph.getVertexMap();
         const inBetweenCentralitySetArray =  [];
         for (const [label, node] of vertexMap) {
            
-           let shortestPathToAllNodesResponse = GraphAnalyticsLib.shortestPathToAllNodes(graph,label,cost);            
+           let shortestPathToAllNodesResponse = GraphAnalyticsLib.shortestPathToAllNodes(graph,label,relationshipType, attribute);            
            let verticesPathSetArray = GraphAnalyticsUtil.parsePathMapToGetAllPathsAsArrayOfVertexSets(label,shortestPathToAllNodesResponse.PathMap);
            inBetweenCentralitySetArray.push(verticesPathSetArray);
         }
@@ -194,9 +194,9 @@ module.exports = class GraphAnalyticsLib {
      * @param {Graph} graph 
      * @param {String} cost 
      */
-    static eccentricityMeasure(sourceVertex,graph,cost)
+    static eccentricityMeasure(sourceVertex,graph,relationshipType, attribute)
     {
-        const shortestPathToAllNodesResponse = GraphAnalyticsLib.shortestPathToAllNodes(graph,sourceVertex,cost);
+        const shortestPathToAllNodesResponse = GraphAnalyticsLib.shortestPathToAllNodes(graph,sourceVertex,relationshipType, attribute);
         let maxDistanceFromAllNodes = 0;
         const vertexMap = graph.getVertexMap();
         

@@ -5,33 +5,68 @@
  *
  * Class defining a Node for the graph
  */
-
-module.exports  = class Node {
+class Node {
+//module.exports  = class Node {
 
 	constructor(label) {
 	  this.label = label;
-	  this.outBoundRelationships = [];
-	  this.inBoundRelationships = []; 
+	  this.outBoundRelationshipsMap = new Map();
+	  this.inBoundRelationshipsMap = new Map(); 
 	}	
   
-   getOutBoundRelationships() {
-	   return this.outBoundRelationships;
+  /**
+   * get all outbound relationships
+   * of the node for the specified relationship
+   */
+   getOutBoundRelationships(relationshipType) {
+	   return this.outBoundRelationshipsMap.get(relationshipType);
    }
 
-   getInBoundRelationships() {
-	return this.inBoundRelationships;
+   /**
+    * get all inbound relationships of the 
+    * node
+    */
+   getInBoundRelationships(relationshipType) {
+	return this.inBoundRelationshipsMap.get(relationshipType);
    }
 
+   /**
+    * add outbound relationship
+    * @param {Relationship} or 
+    */
    addOutBoundRelationship(or)
-   {
-	   this.outBoundRelationships.push(or);
+   { 
+       if(this.outBoundRelationshipsMap.get(or.getType()) === undefined)
+       {
+           this.outBoundRelationshipsMap.set(or.getType(),[or]);
+       }
+       else
+       {
+           this.outBoundRelationshipsMap.get(or.getType()).push(or);
+       }
+	  
    }
 
+   /**
+    * add inbound relationship
+    * @param {Relationship} ir 
+    */
    addInBoundRelationship(ir)
    {
-	   this.inBoundRelationships.push(ir);
+   
+       if(this.inBoundRelationshipsMap.get(ir.getType()) === undefined)
+       {
+           this.inBoundRelationshipsMap.set(ir.getType(),[ir]);
+       }
+       else
+       {
+           this.inBoundRelationshipsMap.get(ir.getType()).push(ir);
+       }
    }
 
+   /**
+    * get Node label
+    */
    getLabel()
    {
 	   return this.label;
