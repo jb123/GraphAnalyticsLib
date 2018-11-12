@@ -5,8 +5,8 @@
  *
  * Class defining a graph
  */
-class Graph {
-//module.exports = class Graph {
+
+module.exports = class Graph {
 	
 	constructor(label) {
 		this.label = label;

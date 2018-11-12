@@ -6,8 +6,8 @@
  * Class defining a relationship in a graph
  */
 
-class Relationship{
-//module.exports = class Relationship {
+
+module.exports = class Relationship {
 
 	constructor(id, sourceVertex, destinationVertex, type, attributes) {
 		this.id = id;

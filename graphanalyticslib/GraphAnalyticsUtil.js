@@ -6,8 +6,7 @@
  * Utility Class for processing analytical algorithms
  */
 
-class GraphAnalyticsUtil {
-//module.exports = class GraphAnalyticsUtil {
+module.exports = class GraphAnalyticsUtil {
 
     static parsePathMapToGetPathAsArray(sourceVertex,destinationVertex,map)
     {

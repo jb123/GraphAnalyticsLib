@@ -5,8 +5,8 @@
  *
  * Class defining a Node for the graph
  */
-class Node {
-//module.exports  = class Node {
+
+module.exports  = class Node {
 
 	constructor(label) {
 	  this.label = label;
@@ -16,7 +16,7 @@ class Node {
   
   /**
    * get all outbound relationships
-   * of the node for the specified relationship
+   * of the node for the specified relationship type
    */
    getOutBoundRelationships(relationshipType) {
 	   return this.outBoundRelationshipsMap.get(relationshipType);
@@ -24,7 +24,7 @@ class Node {
 
    /**
     * get all inbound relationships of the 
-    * node
+    * node for the specified relationship type
     */
    getInBoundRelationships(relationshipType) {
 	return this.inBoundRelationshipsMap.get(relationshipType);

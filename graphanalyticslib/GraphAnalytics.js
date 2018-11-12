@@ -8,15 +8,16 @@
  */
 
 
-//module.exports = class GraphAnalyticsLib {
-    class GraphAnalyticsLib {
+module.exports = class GraphAnalyticsLib {
+   
     /**
      *  This function calculates the shortest path from a source Vertex
      *  to a destination vertex using the djikstra's algorithm
      * @param {Graph} graph 
      * @param {String} sourceVertex label
      * @param {String} destinationVertex label
-     * @param {String} cost 
+     * @param {String} relationshipType label
+     * @param {String} attribute of the relationship 
      */
     static shortestPathToDestinationNode (graph,sourceVertex,destinationVertex,relationshipType,attribute)
     {
@@ -31,7 +32,8 @@
      * 
      * @param {Graph} graph 
      * @param {String} sourceVertex 
-     * @param {String} cost 
+     * @param {String} relationshipType label
+     * @param {String} attribute of the relationship
      */
     static shortestPathToAllNodes (graph, sourceVertex,relationshipType, attribute)
     {
@@ -93,6 +95,7 @@
     /**
      * This function calculates the outdegree and indegree centrality measure of all the nodes of a graph
      * @param {Graph} graph 
+     * @param {String} relationshipType label
      */
     static degreeCentrality (graph,relationshipType)
     {
@@ -118,7 +121,8 @@
      * 
      * @param {String} sourceVertex 
      * @param {Graph} graph 
-     * @param {String} cost 
+     * @param {String} relationshipType label
+     * @param {String} attribute of the relationship
      */
     static closenessCentralityMeasure (sourceVertex, graph, relationshipType, attribute)
     {
@@ -148,7 +152,8 @@
      * 
      * @param {String} sourceVertex 
      * @param {Graph} graph 
-     * @param {String} cost 
+     * @param {String} relationshipType label
+     * @param {String} attribute of the relationship 
      */
     static inBetweenCentrality(sourceVertex, graph, relationshipType, attribute)
     {
@@ -192,7 +197,8 @@
      * 
      * @param {String} sourceVertex 
      * @param {Graph} graph 
-     * @param {String} cost 
+     * @param {String} relationshipType label
+     * @param {String} attribute of the relationship
      */
     static eccentricityMeasure(sourceVertex,graph,relationshipType, attribute)
     {
