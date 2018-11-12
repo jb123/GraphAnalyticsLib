@@ -14,7 +14,6 @@ First ever - A Graph Anlaytics Library providing the user with an in-memory grap
 For usage, please see the [WIKI] (https://github.com/jb123/GraphAnalyticsLib/wiki)
 
 # To Do / In Progress
-- Need to generalize "cost" attributes in relationship
 - Increasing efficiency / optimization by parallel computing of algorithms
 - Better formatting
 - Performing performance benchmarks

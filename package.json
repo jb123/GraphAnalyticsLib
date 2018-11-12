@@ -1,6 +1,6 @@
 {
   "name": "graphanalyticslib",
-  "version": "1.0.11",
+  "version": "1.0.13",
   "description": "First ever - A Graph Anlaytics Library providing the user with an in-memory graph and graph analytics algorithms enabling the user to create, store, manage, process and most importantly analyze graphs for insights and other purposes, purely written in Javascript without any external dependencies.",
   "main": "index.js",
   "scripts": {
@@ -14,8 +14,11 @@
     "graph-analytics",
     "analytics",
     "graph",
+    "javascript",
     "algorithms",
     "database",
+    "graph database",
+    "in memory database",
     "data-analysis",
     "network",
     "analysis"
