@@ -8,7 +8,7 @@
 
 
 module.exports = class Relationship {
-
+	
 	constructor(id, sourceVertex, destinationVertex, type, attributes) {
 		this.id = id;
 		this.type = type;

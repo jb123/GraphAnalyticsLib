@@ -16,8 +16,8 @@ class PQNode {
   }
 
  
-  module.exports = class PriorityQueue {
-    
+module.exports = class PriorityQueue {
+
     constructor()
     {
          this.queue = [null];

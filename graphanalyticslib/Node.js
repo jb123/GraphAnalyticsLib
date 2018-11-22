@@ -7,8 +7,8 @@
  */
 
 module.exports  = class Node {
-
-	constructor(label) {
+    
+    constructor(label) {
 	  this.label = label;
 	  this.outBoundRelationshipsMap = new Map();
 	  this.inBoundRelationshipsMap = new Map(); 

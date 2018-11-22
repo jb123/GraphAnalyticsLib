@@ -7,7 +7,7 @@
  */
 
 module.exports = class Graph {
-	
+
 	constructor(label) {
 		this.label = label;
 		this.noOfVertices=0;

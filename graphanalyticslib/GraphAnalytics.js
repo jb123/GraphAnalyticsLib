@@ -9,7 +9,7 @@
 
 
 module.exports = class GraphAnalyticsLib {
-   
+    	  
     /**
      *  This function calculates the shortest path from a source Vertex
      *  to a destination vertex using the djikstra's algorithm
@@ -219,5 +219,61 @@ module.exports = class GraphAnalyticsLib {
             "eccentricityMeasure" : maxDistanceFromAllNodes
         };
     }
+
+    /**
+     * 
+     * @param {String} nodeLabel 
+     * @param {Graph} graph 
+     * @param {String} relationshipType 
+     * @param {Integer} convergenceIterationValue 
+     * @param {Float} dampFactor 
+     */
+    static pageRankForANode(nodeLabel, graph, relationshipType, convergenceIterationValue, dampFactor)
+    {
+        const pageRankResponse = GraphAnalyticsLib.pageRank(graph, relationshipType, convergenceIterationValue, dampFactor);
+        return pageRankResponse.pageRankMeasure.get(nodeLabel);
+    }
+
+    /**
+     * 
+     * @param {Graph} graph 
+     * @param {String} relationshipType 
+     * @param {Integer} convergenceIterationValue 
+     * @param {Float} dampFactor 
+     */
+    static pageRank(graph, relationshipType, convergenceIterationValue, dampFactor)
+    {
+        const vertexMap = graph.getVertexMap();
+        let nodeToPageRankMap = new Map();
+        const initialSeedRank = 1.0/graph.noOfVertices;
+
+        for (const [label, node] of vertexMap) {
+            nodeToPageRankMap.set(label, initialSeedRank);
+         }
+
+        for(var i=0 ; i < convergenceIterationValue ;++i)
+        { 
+            let tempNodeToRankMap = new Map();
+            for (const [label, node] of vertexMap) {
+                let inBoundRelationships = node.getInBoundRelationships(relationshipType);
+                let contributionComponentSummation = 0.0;
+                for(let rel of inBoundRelationships)
+                {
+                    let neighborNode = vertexMap.get(rel.getSourceVertex());
+                    let neighborNodeTotalOutboundRelationships = (neighborNode.getOutBoundRelationships(relationshipType)).length;
+                    contributionComponentSummation = contributionComponentSummation +  (dampFactor * 1.0) * (parseFloat(nodeToPageRankMap.get(rel.getSourceVertex()) / neighborNodeTotalOutboundRelationships));
+                }
+                let calculatedPageRank = ((1.0 - dampFactor) / graph.noOfVertices) + contributionComponentSummation;
+                tempNodeToRankMap.set(label, calculatedPageRank.toFixed(6));
+            }
+            nodeToPageRankMap = tempNodeToRankMap;
+        }
+        
+        return {
+            "pageRankMeasure" : nodeToPageRankMap
+        };
+       
+    }
+
 
 }
