@@ -17,17 +17,28 @@ module.exports = class Graph {
 	
 	/**
 	 * 
-	 * @param {Node} n node of the graph 
+	 * @param {String} label of the node of the graph 
 	 */
-	addNode(n)
+	addNode(nodeLabel)
 	{
+		if(this.vertexMap.has(nodeLabel))
+		{
+			return false;
+		}
+
+		let n = new Node(nodeLabel);
 		this.vertexMap.set(n.getLabel(),n);
 		++this.noOfVertices;
+
+		return true;
 		
 	}
 	
+	
 	/**
-	 * 
+	 * This function adds a relationship (edge along with its associated attributes)
+	 * to the graph.The pre-requisite to add a relationship to the graph is that both
+	 * its source and destination vertex/nodes should be present in the graph.
 	 * @param {Relationship} relationship 
 	 */
 	addRelationship(relationship)
