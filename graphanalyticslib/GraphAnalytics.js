@@ -221,6 +221,8 @@ module.exports = class GraphAnalyticsLib {
     }
 
     /**
+     * This function calculates the page rank for a give node,graph, relationship type combination.
+     * The function also needs an iteration value and a damp factor
      * 
      * @param {String} nodeLabel 
      * @param {Graph} graph 
@@ -235,7 +237,8 @@ module.exports = class GraphAnalyticsLib {
     }
 
     /**
-     * 
+     * This function calculates the page rank for a graph, relationship type combination.
+     * The function also needs an iteration value and a damp factor
      * @param {Graph} graph 
      * @param {String} relationshipType 
      * @param {Integer} convergenceIterationValue 
