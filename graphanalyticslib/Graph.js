@@ -3,7 +3,7 @@
  *
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  *
- * Class defining a graph
+ * Class defining a graph. This class is responsible for manipulating/managing a graph
  */
 
 module.exports = class Graph {
@@ -34,23 +34,85 @@ module.exports = class Graph {
 		
 	}
 	
-	
+	/**
+	 * This function removes the node from a graph given its label
+	 * @param {String} nodeLabel 
+	 */
+	removeNode(nodeLabel)
+	{
+		if(!this.vertexMap.has(nodeLabel))
+		{
+			return false;
+		}
+
+
+	    let nodeToRemove = this.vertexMap.get(nodeLabel);
+	    let allInboundRelationships = nodeToRemove.getAllInBoundRelationships();
+	    let allOutboundRelationships = nodeToRemove.getAllOutBoundRelationships();
+
+		for(var i=0; i < allInboundRelationships.length; ++i)
+		{
+		    this.removeRelationship(allInboundRelationships[i]);
+		}
+
+		for(var i=0; i < allOutboundRelationships.length; ++i)
+		{
+		    this.removeRelationship(allOutboundRelationships[i]);
+		}
+		
+		this.vertexMap.delete(nodeLabel);
+		
+		return true;
+
+	 
+	}
+
+
 	/**
 	 * This function adds a relationship (edge along with its associated attributes)
 	 * to the graph.The pre-requisite to add a relationship to the graph is that both
 	 * its source and destination vertex/nodes should be present in the graph.
+	 * 
 	 * @param {Relationship} relationship 
 	 */
 	addRelationship(relationship)
 	{
+		if(!(this.vertexMap.has(relationship.getSourceVertex()) && this.vertexMap.has(relationship.getDestinationVertex())))
+		{
+			return false;
+		}
+
 		++this.noOfEdges;
 		let sourceVertex = this.vertexMap.get(relationship.getSourceVertex());
 		let destinationVertex =  this.vertexMap.get(relationship.getDestinationVertex());
 		sourceVertex.addOutBoundRelationship(relationship);
 		destinationVertex.addInBoundRelationship(relationship);		
+		return true;
 		
 	}
 	
+	/**
+	 * This function removes a relationship from a graph.The pre-requisite to remove a relationship
+	 * is that the relationship should exist in the Graph
+	 * 
+	 * @param {Relationship} relationship 
+	 */
+	removeRelationship(relationship)
+	{
+		if(!(this.vertexMap.has(relationship.getSourceVertex()) && this.vertexMap.has(relationship.getDestinationVertex())))
+		{
+			return false;
+		}
+
+		--this.noOfEdges;
+		let sourceVertex = this.vertexMap.get(relationship.getSourceVertex());
+		let destinationVertex =  this.vertexMap.get(relationship.getDestinationVertex());
+		sourceVertex.removeOutBoundRelationship(relationship);
+		destinationVertex.removeInBoundRelationship(relationship);	
+
+	}
+
+
 	/**
 	 * 
 	 * @param {String} nodeLabel 

@@ -9,7 +9,8 @@
 
 
 module.exports = class GraphAnalyticsLib {
-    	  
+
+
     /**
      *  This function calculates the shortest path from a source Vertex
      *  to a destination vertex using the djikstra's algorithm
@@ -56,7 +57,7 @@ module.exports = class GraphAnalyticsLib {
         {
             let graphNode = vertexMap.get(minNode.value);
             visitedVertices.add(minNode);
-            let outBoundRelationships = graphNode.getOutBoundRelationships(relationshipType);
+            let outBoundRelationships = graphNode.getOutBoundRelationshipsByRelationshipType(relationshipType);
             
             for(let rel of outBoundRelationships)
             {
@@ -105,8 +106,8 @@ module.exports = class GraphAnalyticsLib {
         for (const [label, node] of vertexMap) {
             let degreeCentralityForANode = {
                 "node_label" : label,
-                "inDegreeCentrality"  : (node.getInBoundRelationships(relationshipType)).length,
-                "outDegreeCentrality" : (node.getOutBoundRelationships(relationshipType)).length                                      
+                "inDegreeCentrality"  : (node.getInBoundRelationshipsByRelationshipType(relationshipType)).length,
+                "outDegreeCentrality" : (node.getOutBoundRelationshipsByRelationshipType(relationshipType)).length                                      
             };
 
          degreeCentralityResponse.push(degreeCentralityForANode);
@@ -233,7 +234,11 @@ module.exports = class GraphAnalyticsLib {
     static pageRankForANode(nodeLabel, graph, relationshipType, convergenceIterationValue, dampFactor)
     {
         const pageRankResponse = GraphAnalyticsLib.pageRank(graph, relationshipType, convergenceIterationValue, dampFactor);
-        return pageRankResponse.pageRankMeasure.get(nodeLabel);
+        console.log(pageRankResponse);
+        return {
+            "node_label" : nodeLabel,
+            "pageRank": pageRankResponse.pageRankMeasure.get(nodeLabel)
+        };
     }
 
     /**
@@ -258,12 +263,12 @@ module.exports = class GraphAnalyticsLib {
         { 
             let tempNodeToRankMap = new Map();
             for (const [label, node] of vertexMap) {
-                let inBoundRelationships = node.getInBoundRelationships(relationshipType);
+                let inBoundRelationships = node.getInBoundRelationshipsByRelationshipType(relationshipType);
                 let contributionComponentSummation = 0.0;
                 for(let rel of inBoundRelationships)
                 {
                     let neighborNode = vertexMap.get(rel.getSourceVertex());
-                    let neighborNodeTotalOutboundRelationships = (neighborNode.getOutBoundRelationships(relationshipType)).length;
+                    let neighborNodeTotalOutboundRelationships = (neighborNode.getOutBoundRelationshipsByRelationshipType(relationshipType)).length;
                     contributionComponentSummation = contributionComponentSummation +  (dampFactor * 1.0) * (parseFloat(nodeToPageRankMap.get(rel.getSourceVertex()) / neighborNodeTotalOutboundRelationships));
                 }
                 let calculatedPageRank = ((1.0 - dampFactor) / graph.noOfVertices) + contributionComponentSummation;
@@ -278,5 +283,37 @@ module.exports = class GraphAnalyticsLib {
        
     }
 
+    /**
+     * This function returns all outbound edges/relationships of a node in the graph
+     * given a nodeLabel and a graph
+     * 
+     * @param {Graph} graph 
+     * @param {String} nodeLabel 
+     */
+    static getAllOutBoundRelationshipsForANode(graph, nodeLabel)
+    {
+        const node = graph.getNode(nodeLabel);
+        const allOutboundRelationships = node.getAllOutBoundRelationships();
+        return {
+            "node" : nodeLabel,
+            "outBoundRelationships" : allOutboundRelationships
+        };
+    }
 
+    /**
+     * This function returns all inbound edges/relationships of a node in the graph
+     * given a nodeLabel and a graph
+     * 
+     * @param {Graph} graph 
+     * @param {String} nodeLabel 
+     */
+    static getAllInboundRelationshipsForANode(graph, nodeLabel)
+    {
+        const node = graph.getNode(nodeLabel);
+        const allInBoundRelationships = node.getAllInBoundRelationships();
+        return {
+            "node" : nodeLabel,
+            "inBoundRelationships" : allInBoundRelationships
+        };
+    }
 }

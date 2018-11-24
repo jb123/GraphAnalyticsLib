@@ -32,10 +32,11 @@
 
 
 module.exports = {
-  graphAnalytics :  require("./GraphAnalytics"),
+  GraphAnalytics :  require("./GraphAnalytics"),
   GraphAnalyticsUtil: require("./GraphAnalyticsUtil"),
   Node: require("./Node"),
   Graph : require("./Graph"),
+  MapUtils : require("./MapUtils"),
   Relationship : require("./Relationship"),
   PriorityQueue : require("./PriorityQueue")
 };

@@ -8,6 +8,7 @@
 
 
 module.exports = class Relationship {
+
 	
 	constructor(id, sourceVertex, destinationVertex, type, attributes) {
 		this.id = id;
@@ -17,11 +18,17 @@ module.exports = class Relationship {
 		this.attributes = attributes;  
 	}	
 
+	/**
+	 * Gets the relationship Id of a relationship
+	 */
 	getRelationshipId()
 	{
 		return this.id;
 	}
 
+	/**
+	 * Gets the type associated with the relationship/edge
+	 */
 	getType()
 	{
 		return this.type;
