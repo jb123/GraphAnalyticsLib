@@ -77,7 +77,7 @@ module.exports = class Graph {
 	 */
 	addRelationship(relationship)
 	{
-		if(!(this.vertexMap.has(relationship.getSourceVertex()) && this.vertexMap.has(relationship.getDestinationVertex())))
+		if(!validateRelationshipVertices(relationship))
 		{
 			return false;
 		}
@@ -99,7 +99,7 @@ module.exports = class Graph {
 	 */
 	removeRelationship(relationship)
 	{
-		if(!(this.vertexMap.has(relationship.getSourceVertex()) && this.vertexMap.has(relationship.getDestinationVertex())))
+		if(!validateRelationshipVertices(relationship))
 		{
 			return false;
 		}
@@ -112,6 +112,18 @@ module.exports = class Graph {
 
 	}
 
+	/**
+	 * This function validates if aboth the vertices of a relationship
+	 * exists in the graph
+	 * @param {Relationship} relationship 
+	 */
+	validateRelationshipVertices(relationship)
+	{
+		if(this.vertexMap.has(relationship.getSourceVertex()) && this.vertexMap.has(relationship.getDestinationVertex()))
+			return true;
+		else
+		    return false;	 
+	}
 
 	/**
 	 * 
