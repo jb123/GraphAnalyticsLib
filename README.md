@@ -1,14 +1,14 @@
 # GraphAnalyticsLib
-First ever - A Graph Anlaytics Library providing the user with an in-memory graph and graph analytics algorithms enabling the user to create, store, manage, process and most importantly analyze graphs for data insights/mining and other purposes, <b>purely</b> written in Javascript without any external dependencies.
+First ever - A Graph Analytics Library providing the user with an In-Memory Graph and Graph Analytics Algorithms for analysis, <b>purely</b> written in Javascript, using Javascript's parallel computing capabilities, without any external dependencies.
 
 
-
-# Usage
-- Can be used anywhere javascript can be executed
-- Supports multigraphs
-- Can be used in React, React Native, browsers, Iot platforms, mobile platforms and other JS based frameworks/libraries (Node.js etc)
-- Allows creation,storing, managing,processing and analyzing graphs using only JS without external dependencies.
-- Provides in-built graph analytical algorithms to process and analyze graphs
+# Features
+- Can be used anywhere Javascript can be executed
+- Can be used in React and React Native thus allowing graph creation, processing and analytics on mobile platforms,IoT as well as browsers or Node.js based frameworks.
+- Supports Multi-graphs
+- Allows creation,storing, managing,processing and analyzing graphs/multi-graphs using only JS without external dependencies.
+- Provides in-built Graph Analytical Algorithms to process and analyze graphs.
+- Graph Analytics Algorithms use JavaScript's parallel computing capabilities for optimized execution (In progress)
 
 # Sample Usage
 For usage, please see the [WIKI] (https://github.com/jb123/GraphAnalyticsLib/wiki)
@@ -16,5 +16,6 @@ For usage, please see the [WIKI] (https://github.com/jb123/GraphAnalyticsLib/wik
 # To Do / In Progress
 - Increasing efficiency / optimization by parallel computing of algorithms
 - Better formatting
+- Adding more graph operations
 - Performing performance benchmarks
 - Adding other algorithms
